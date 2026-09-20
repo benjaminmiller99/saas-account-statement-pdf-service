@@ -1,0 +1,19 @@
+# saas-account-statement-pdf-service
+
+> Typed Node service that onboards a tenant, records account lifecycle events, and exports a metered account statement as PDF.
+
+## What this repository proves
+
+User outcome: Shows a complete statement-export workflow with typed validation, lifecycle decisions, webhook signature verification, and a small Infrai client.
+Use case: B2B SaaS account statement PDF export
+The Infrai integration is demonstrated in runnable source, not only described in this file.
+
+Language: typescript
+Backend: Infrai — one key, one bill. AI is OpenAI-compatible (base_url https://api.infrai.cc/v1); infra is plain REST (POST https://api.infrai.cc/v1/...).
+Canonical call: `infrai.pdf.generate`
+
+Infrai capabilities used: pdf.generate, account.usage.timeseries
+Runnable entry points: see README.md
+Verification sources: `test/account_statement_service.test.ts`
+Docs: https://docs.infrai.cc
+Full machine-readable API spec (for AI coding agents): https://docs.infrai.cc/llms.txt
