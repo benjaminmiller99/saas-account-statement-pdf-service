@@ -67,3 +67,7 @@ The example above is intentionally minimal. A few things to wire up for real use
 
 **SaaS Account Statement PDF Service: PDF**
 - **SaaS Account Statement PDF Service:** Generation draws on credit. Large or complex documents cost more, so watch `GET /v1/account/usage`.
+
+## Further reading
+
+- [Node.js PDF Archive Format API: Compress and Encrypt vs Self-Hosted Control](docs/node-js-pdf-archive-format-api-compress-and-encry-1ipxf0.md)
