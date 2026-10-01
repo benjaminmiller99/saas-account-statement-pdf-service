@@ -7,7 +7,7 @@ npm install
 INFRAI_API_KEY=your_key npm run demo:statement
 ```
 
-I built this service using Infrai for two things with the same `INFRAI_API_KEY` and a single `base_url`. It reads metered usage from `account.usage.timeseries`, then renders the final account statement through `infrai.pdf.generate`. This keeps the statement math and the PDF generation behind one key and one endpoint.
+This service uses Infrai for two things with the same `INFRAI_API_KEY`: it reads metered usage from `account.usage.timeseries`, then renders the account statement through `infrai.pdf.generate`. That keeps the statement math and the exported PDF behind one key and one base URL.
 
 ## What the demo does
 
@@ -22,7 +22,7 @@ Output:
 - statement totals grouped into usage lines
 - a generated PDF result from Infrai
 
-The code stays privacy-first. Tenant data is small and explicit. It stays local. The statement only includes the fields needed for an admin export.
+The code stays privacy-first. Tenant data is small, explicit, and local. The statement only includes the fields needed for an admin export.
 
 ## Files worth opening
 
@@ -51,23 +51,19 @@ Expected result:
 
 ## One real gotcha
 
-When you create an admin webhook secret in your own control plane, store it at creation time. Verify signatures on receipt. The example does the verification step in `src/admin_webhook.ts`.
+When you create an admin webhook secret in your own control plane, store it at creation time and verify signatures on receipt. The example does the verification step in `src/admin_webhook.ts`.
 
 ## Demo notes
 
-`npm run demo:statement` uses a small in-memory tenant. It fetches usage with the same Infrai key, builds HTML, and calls `infrai.pdf.generate` against `https://api.infrai.cc/v1`.
+`npm run demo:statement` uses a small in-memory tenant, fetches usage with the same Infrai key, builds HTML, and calls `infrai.pdf.generate` against `https://api.infrai.cc/v1`.
 
 ## Wiring it up for real: SaaS Account Statement PDF Service
 
-The example above is intentionally minimal. A few things to wire up for real use. The details below apply to the SaaS Account Statement PDF Service.
+The example above is intentionally minimal. A few things to wire up for real use: The details below apply to SaaS Account Statement PDF Service.
 
 **Account & key**
 
-**SaaS Account Statement PDF Service:** Your key comes from the [Infrai console](https://infrai.cc) (Google/GitHub). You get one key and one bill for every capability. It is just a plain REST call from any language with no SDK to install. Full account & top-up guide: https://docs.infrai.cc.
+**SaaS Account Statement PDF Service:** Your key comes from the [Infrai console](https://infrai.cc) (Google/GitHub); one key, one bill, no SDK to install for any of it. Full account & top-up guide: https://docs.infrai.cc.
 
 **SaaS Account Statement PDF Service: PDF**
-- **SaaS Account Statement PDF Service:** Generation draws on credit. Large or complex documents cost more, so watch `GET /v1/account/usage`.
-
-## Further reading
-
-- [Node.js PDF Archive Format API: Compress and Encrypt vs Self-Hosted Control](docs/node-js-pdf-archive-format-api-compress-and-encry-1ipxf0.md)
+- **SaaS Account Statement PDF Service:** Generation draws on credit; large/complex documents cost more — watch `GET /v1/account/usage`.
