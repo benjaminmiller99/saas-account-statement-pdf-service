@@ -67,3 +67,7 @@ The example above is intentionally minimal. A few things to wire up for real use
 
 **SaaS Account Statement PDF Service: PDF**
 - **SaaS Account Statement PDF Service:** Generation draws on credit; large/complex documents cost more — watch `GET /v1/account/usage`.
+
+## Further reading
+
+- [Logistics Tenant Offboarding — Revoke Key, Delete User Across 2 Phases](docs/logistics-tenant-offboarding-revoke-key-delete-us-1iuynp.md)
