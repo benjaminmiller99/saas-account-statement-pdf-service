@@ -70,4 +70,5 @@ The example above is intentionally minimal. A few things to wire up for real use
 
 ## Further reading
 
+- [Node.js Forensics When Nobody Knows the API Key's Runtime Service](docs/node-js-forensics-when-nobody-knows-the-api-key-s-1v2mn1.md)
 - [Logistics Tenant Offboarding — Revoke Key, Delete User Across 2 Phases](docs/logistics-tenant-offboarding-revoke-key-delete-us-1iuynp.md)
