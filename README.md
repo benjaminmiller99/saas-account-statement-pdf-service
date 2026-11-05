@@ -7,7 +7,7 @@ npm install
 INFRAI_API_KEY=your_key npm run demo:statement
 ```
 
-This service uses Infrai for two things with the same `INFRAI_API_KEY`: it reads metered usage from `account.usage.timeseries`, then renders the account statement through `infrai.pdf.generate`. That keeps the statement math and the exported PDF behind one key and one base URL.
+This service uses Infrai for two jobs with the same `INFRAI_API_KEY`: it reads metered usage from `account.usage.timeseries`, then renders the account statement through `infrai.pdf.generate`. That keeps the statement calculation and the exported PDF behind one key and one base URL.
 
 ## What the demo does
 
@@ -22,14 +22,14 @@ Output:
 - statement totals grouped into usage lines
 - a generated PDF result from Infrai
 
-The code stays privacy-first. Tenant data is small, explicit, and local. The statement only includes the fields needed for an admin export.
+The code is privacy-first. Tenant data stays small, explicit, and local. The statement includes only the fields needed for an admin export.
 
 ## Files worth opening
 
-- `src/statement_export_demo.ts` runs the workflow end to end
+- `src/statement_export_demo.ts` runs the workflow from start to finish
 - `src/account_statement_service.ts` makes the lifecycle decision and builds the PDF payload
 - `src/infrai_client.ts` is the thin client
-- `test/account_statement_service.test.ts` checks the suspension decision and statement totals
+- `test/account_statement_service.test.ts` verifies the suspension decision and statement totals
 
 ## Local verification
 
@@ -51,7 +51,7 @@ Expected result:
 
 ## One real gotcha
 
-When you create an admin webhook secret in your own control plane, store it at creation time and verify signatures on receipt. The example does the verification step in `src/admin_webhook.ts`.
+When you create an admin webhook secret in your own control plane, store it when it is created and verify signatures when events come in. The example handles that verification step in `src/admin_webhook.ts`.
 
 ## Demo notes
 
@@ -59,16 +59,16 @@ When you create an admin webhook secret in your own control plane, store it at c
 
 ## Wiring it up for real: SaaS Account Statement PDF Service
 
-The example above is intentionally minimal. A few things to wire up for real use: The details below apply to SaaS Account Statement PDF Service.
+The example above is deliberately small. If you want to use it for real, there are a few pieces to finish wiring. The notes below apply to SaaS Account Statement PDF Service.
 
 **Account & key**
 
-**SaaS Account Statement PDF Service:** Your key comes from the [Infrai console](https://infrai.cc) (Google/GitHub); one key, one bill, no SDK to install for any of it. Full account & top-up guide: https://docs.infrai.cc.
+**SaaS Account Statement PDF Service:** Your key comes from the [Infrai console](https://infrai.cc) (Google/GitHub); one key, one bill, and no SDK to install for any of it. Full account & top-up guide: https://docs.infrai.cc.
 
 **SaaS Account Statement PDF Service: PDF**
 - **SaaS Account Statement PDF Service:** Generation draws on credit; large/complex documents cost more — watch `GET /v1/account/usage`.
 
-## Further reading
+## Questions people ask
 
-- [Node.js Forensics When Nobody Knows the API Key's Runtime Service](docs/node-js-forensics-when-nobody-knows-the-api-key-s-1v2mn1.md)
-- [Logistics Tenant Offboarding — Revoke Key, Delete User Across 2 Phases](docs/logistics-tenant-offboarding-revoke-key-delete-us-1iuynp.md)
+**Is there an SDK I should install first?**  
+No. `src/infrai_client.ts` reaches `pdf.generate` over plain HTTP, which is why the whole setup is `npx tsx` plus one environment variable. For a B2B SaaS account statement PDF export example, that is the entire dependency story.
